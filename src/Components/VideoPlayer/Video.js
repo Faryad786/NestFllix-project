@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Typography, Container, Box, Button, Grid, Card, CardContent, CardMedia } from "@mui/material";
 import axios from "axios";
 import StarIcon from '@mui/icons-material/Star';
+
 const Video = () => {
     const location = useLocation();
     const { movie } = location.state || {};
@@ -101,7 +102,7 @@ const Video = () => {
 
                 {/* Right Column: Recommended Videos */}
                 <Grid item xs={12} md={4}>
-                    <Typography variant="h5" sx={{ color: "#950101", marginBottom: "10px", fontWeight:'bold' }}>
+                    <Typography variant="h5" sx={{ color: "#950101", marginBottom: "10px", fontWeight: 'bold' }}>
                         Recommended Movies
                     </Typography>
 
@@ -119,14 +120,14 @@ const Video = () => {
 
                     <Grid container spacing={2}>
                         {recommendedMovies.map((recMovie, index) => (
-                            <Grid item xs={12} key={index}>
+                            <Grid item xs={12} sm={6} md={12} key={index}>
                                 <Card
                                     sx={{ cursor: "pointer", display: "flex", alignItems: "center", backgroundColor: 'black', border: '1px solid #950101' }}
                                     onClick={() => navigate("/videoPlay", { state: { movie: recMovie } })}
                                 >
                                     <CardMedia
                                         component="img"
-                                        sx={{ width: 100 }}
+                                        sx={{ width: 100, height: 150 }}
                                         image={recMovie.posterimage || "https://via.placeholder.com/150"}
                                         alt={recMovie.title}
                                     />
