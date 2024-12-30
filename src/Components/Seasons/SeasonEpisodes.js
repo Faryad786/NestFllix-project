@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Grid, Typography, Box, Button } from '@mui/material';
+import { Container, Grid, Typography, Box, Button} from '@mui/material';
 import LoadingComponent from '../Loader/LoadingComponent';
 
 const SeasonEpisodes = () => {
@@ -46,7 +46,8 @@ const SeasonEpisodes = () => {
     if (error) return <Typography color="error">{error}</Typography>;
 
     return (
-        <Container style={{ padding: '20px' }}>
+        <Container >
+            <Button variant='contained' sx={{backgroundColor:'#950101'}} onClick={()=>navigate('/all/Seasons')}>back</Button>
             <Typography
                 variant="h4"
                 gutterBottom
@@ -69,8 +70,7 @@ const SeasonEpisodes = () => {
                                 border: '1px solid #950101',
                                 borderRadius: '10px',
                                 padding: '20px',
-                                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                                textAlign: 'center',
+                                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',                                
                             }}
                         >
                             <img
@@ -107,7 +107,7 @@ const SeasonEpisodes = () => {
                                     })
                                 }
                             >
-                                Watch Now
+                                Watch
                             </Button>
                         </Box>
                     </Grid>

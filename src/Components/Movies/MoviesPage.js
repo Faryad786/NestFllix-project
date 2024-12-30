@@ -7,7 +7,7 @@ import {
     Container,    
     Button,
     CardMedia,
-    Pagination,
+    
 } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -22,6 +22,19 @@ const MoviesPage = () => {
     const moviesPerPage = 9;
 
     
+    const totalPages = Math.ceil(movies.length / moviesPerPage);
+
+    const handlePrevClick = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextClick = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
 
     useEffect(() => {
         const fetchCategoryMovies = async () => {
@@ -55,9 +68,7 @@ const MoviesPage = () => {
         navigate(`/videoPlay`, { state: { movie } });
     };
 
-    const handlePageChange = (_, page) => {
-        setCurrentPage(page);
-    };
+    
 
     // Calculate the movies to display on the current page
     const indexOfLastMovie = currentPage * moviesPerPage;
@@ -149,21 +160,27 @@ const MoviesPage = () => {
                 ))}
             </Grid>
 
-            <Pagination
-                count={Math.ceil(movies.length / moviesPerPage)}
-                page={currentPage}
-                onChange={handlePageChange}
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    marginTop: '20px',
-
-                    '& .MuiPaginationItem-root': {
-                        fontSize: '1.25rem',
-                        color: '#950101',
-                    },
-                }}
-            />
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <Button
+                variant="contained"
+                onClick={handlePrevClick}
+                disabled={currentPage === 1}
+                sx={{ marginRight: '10px', fontSize: '1.25rem', backgroundColor: '#950101', color: '#fff' }}
+            >
+                Prev
+            </Button>
+            <span style={{ alignSelf: 'center', fontSize: '1.25rem', margin: '0 10px', color:'#950101' }}>
+                Page {currentPage} of {totalPages}
+            </span>
+            <Button
+                variant="contained"
+                onClick={handleNextClick}
+                disabled={currentPage === totalPages}
+                sx={{ marginLeft: '10px', fontSize: '1.25rem', backgroundColor: '#950101', color: '#fff' }}
+            >
+                Next
+            </Button>
+        </div>
 
         </Container>
     );

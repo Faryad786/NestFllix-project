@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LoadingComponent from '../Loader/LoadingComponent';
-import { Container, Grid, Typography, Box } from '@mui/material';
+import { Container, Grid, Typography, Box, Button } from '@mui/material';
 
 const AllSeasons = () => {
     const [seasons, setSeasons] = useState([]);
@@ -44,7 +44,8 @@ const AllSeasons = () => {
     if (error) return <Typography color="error">{error}</Typography>;
 
     return (
-        <Container style={{ padding: '20px', textAlign: 'center' }}>
+        <Container>
+            <Button variant='contained' sx={{backgroundColor:'#950101'}} onClick={()=>navigate('/')}>back</Button>
             <Typography
                 variant="h4"
                 gutterBottom
@@ -59,49 +60,72 @@ const AllSeasons = () => {
                 Seasons
             </Typography>
 
-            <Grid container spacing={3} justifyContent="center">
-                {seasons.map((season) => (
+            <Grid container spacing={2} justifyContent="center">
+                
                     <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        md={4}
-                        key={season._id}
-                        onClick={() => navigate(`/season/${season._id}`)}
-                        style={{ cursor: 'pointer' }}
+                        container
+                        spacing={3}
+                        style={{ width: '100%' }}
                     >
-                        <Box
-                            style={{
-                                border: '1px solid #950101',
-                                borderRadius: '10px',
-                                padding: '20px',
-                                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                                textAlign: 'center',
-                            }}
-                        >
-                            <img
-                                src={season.poster}
-                                alt={season.title}
-                                style={{ width: '100%', height: 'auto', borderRadius: '10px' }}
-                            />
-                            <Typography
-                                variant="h6"
-                                style={{ color: '#950101', margin: '10px 0' }}
+                        {seasons.map((season) => (
+                            <Grid
+                                item
+                                xs={6} 
+                                sm={6}
+                                md={4} 
+                                lg={4}
+                                key={season._id}
+
                             >
-                                {season.title}
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                style={{ fontSize: '14px', color: '#950101' }}
-                            >
-                                <span style={{ fontWeight: 'bold', color: 'white' }}>
-                                    Language
-                                </span>
-                                : {season.language}
-                            </Typography>
-                        </Box>
+                                <Box
+                                    sx={{
+                                        border: '1px solid #950101',
+                                        borderRadius: '10px',
+                                        padding: '16px',
+                                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',                                        
+                                        height: '100%',
+                                    }}
+                                    onClick={() => navigate(`/season/${season._id}`)}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <img
+                                        src={season.poster}
+                                        alt={season.title}
+                                        style={{
+                                            width: '100%',
+                                            height: '150px',
+                                            borderRadius: '10px',
+                                        }}
+                                    />
+                                    <Typography
+                                        variant="h6"
+                                        style={{
+                                            color: '#950101',
+                                            margin: '10px 0',
+                                            fontWeight: 'bold',
+                                        }}
+                                    >
+                                        {season.title}
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        style={{
+                                            fontSize: '12px',
+                                            color: '#fff',
+                                        }}
+                                    >
+                                        <span style={{ fontWeight: 'bold', color: '#950101' }}>
+                                            Language
+                                        </span>
+                                        : {season.language}
+                                    </Typography>
+                                </Box>
+                            </Grid>
+
+                        ))}
                     </Grid>
-                ))}
+
+                
             </Grid>
         </Container>
     );

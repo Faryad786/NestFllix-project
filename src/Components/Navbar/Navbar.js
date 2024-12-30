@@ -80,7 +80,7 @@ const Navbar = () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tmdb/search?title=${event.target.value.trim()}`);
         const data = await response.json();
-        setSearchResults(data.results || []);
+        setSearchResults(data.movies || []);
       } catch (error) {
         console.error("Error searching movies:", error);
       }
@@ -89,8 +89,8 @@ const Navbar = () => {
     }
   };
 
-  const handleMovieClick = (id) => {
-    navigate(`/videoPlay/${id}`);
+  const handleMovieClick = (movie) => {
+    navigate(`/videoPlay`, { state: { movie } });
     setSearchResults([]);
   };
 
@@ -214,7 +214,7 @@ const Navbar = () => {
               >
                 <List>
                   {searchResults.map((movie) => (
-                    <ListItem key={movie.id} onClick={() => handleMovieClick(movie.id)}>
+                    <ListItem key={movie._id} onClick={() => handleMovieClick(movie)}>
                       <ListItemText
                         primary={movie.title}
                         sx={{ color: 'white', cursor: 'pointer' }}
